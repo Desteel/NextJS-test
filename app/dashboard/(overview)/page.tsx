@@ -1,5 +1,5 @@
 import CardWrapper, { Card } from '@/app/ui/dashboard/cards';
-import RevenueChart from '@/app/ui/dashboard/revenue-chart';
+import RevenueChartUI from '@/app/ui/dashboard/revenue-chart';
 import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
 import { lusitana } from '@/app/ui/fonts';
 import { Suspense } from 'react';
@@ -8,6 +8,12 @@ import {
   LatestInvoicesSkeleton,
   CardsSkeleton,
 } from '@/app/ui/skeletons';
+import { connect } from '@/app/lib/connect';
+import { fetchRevenue } from '@/app/lib/data';
+
+const RevenueChart = connect(RevenueChartUI, async () => {
+  return { revenue: await fetchRevenue() };
+});
 
 export default async function Page() {
   return (
